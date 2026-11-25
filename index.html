@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kyyddb｜个人游戏经历与作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: #F3F5F8;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #EEF2F6;
+      --border: #DFE5EE;
+      --border-strong: #CBD5E1;
+      --ink-primary: #111827;
+      --ink-secondary: #475569;
+      --ink-muted: #64748B;
+      --accent-cobalt: #1D4ED8;
+      --accent-cobalt-soft: #EFF6FF;
+      --accent-cobalt-border: #BFDBFE;
+      /* Hextech Tier Tokens */
+      --silver-border: #94A3B8;
+      --silver-strong: #475569;
+      --silver-bg: #F1F5F9;
+      --silver-badge-bg: #E2E8F0;
+      --gold-border: #D97706;
+      --gold-strong: #B45309;
+      --gold-bg: #FFFBEB;
+      --gold-badge-bg: #FEF3C7;
+      --prism-grad: linear-gradient(135deg, #06B6D4 0%, #6366F1 36%, #EC4899 70%, #F59E0B 100%);
+      --prism-bg: linear-gradient(145deg, #F5F3FF 0%, #ECFEFF 52%, #FDF2F8 100%);
+      --prism-strong: #6D28D9;
+      --frame-dark: #0F172A;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.16);
+      --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-canvas);
+      color: var(--ink-primary);
+      line-height: 1.72;
+      font-size: 15px;
+      overflow-x: clip;
+    }
+
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==================== TOP NAVIGATION ==================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(243, 245, 248, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--ink-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 9px;
+      border: 1px solid var(--ink-primary);
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: transform 0.16s ease, background 0.16s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-cobalt);
+      border-color: var(--accent-cobalt);
+      transform: translateY(-1px);
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      padding: 56px 0 64px;
+      background-image:
+        linear-gradient(to right, rgba(203, 213, 225, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
+      background-size: 40px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(243, 245, 248, 0.3), var(--bg-canvas) 78%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cobalt);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.14);
+    }
+
+    .hero-title {
+      margin: 0 0 14px;
+      font-size: clamp(34px, 4.6vw, 54px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--ink-primary);
+    }
+
+    .hero-sub {
+      margin: 0 0 24px;
+      font-size: 15.8px;
+      line-height: 1.8;
+      color: var(--ink-secondary);
+      max-width: 550px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--accent-cobalt);
+      background: var(--accent-cobalt);
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .btn-primary:hover {
+      background: #1E40AF;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(29, 78, 216, 0.22);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink-primary);
+      transform: translateY(-1px);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 540px;
+    }
+
+    .metric-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink-primary);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .hero-shot {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 7px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .hero-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-cobalt-border);
+    }
+
+    .hero-shot-media {
+      aspect-ratio: 16 / 10;
+      border-radius: 9px;
+      overflow: hidden;
+      background: var(--frame-dark);
+      position: relative;
+    }
+
+    .hero-shot-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .hero-shot:hover .hero-shot-media img {
+      transform: scale(1.04);
+    }
+
+    .hero-shot-cap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4px 2px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .hero-shot-cap span:last-child {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    /* ==================== SECTION HEADERS ==================== */
+    .section {
+      padding: 68px 0;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 31px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--ink-primary);
+      line-height: 1.25;
+    }
+
+    .section-desc {
+      margin: 6px 0 0;
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      max-width: 660px;
+    }
+
+    /* ==================== SECTION 1: CORE GAMES ==================== */
+    .lead-game-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-cobalt);
+      border-radius: var(--radius-lg);
+      padding: 28px 30px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 22px;
+    }
+
+    .lead-game-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--bg-subtle);
+    }
+
+    .game-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .game-name {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .tag-blue {
+      background: var(--accent-cobalt-soft);
+      color: var(--accent-cobalt);
+      border-color: var(--accent-cobalt-border);
+    }
+
+    .tag-amber {
+      background: var(--gold-bg);
+      color: var(--gold-strong);
+      border-color: #FDE68A;
+    }
+
+    .stat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stat-chip {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 8px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border);
+      color: var(--ink-primary);
+    }
+
+    .lead-game-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .thought-block {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .thought-block h4 {
+      margin: 0 0 8px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .thought-block p {
+      margin: 0;
+      font-size: 13.8px;
+      color: var(--ink-secondary);
+      line-height: 1.72;
+    }
+
+    .deep-games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .game-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--border-strong);
+    }
+
+    .game-card-wide {
+      grid-column: 1 / -1;
+    }
+
+    .game-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .game-card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .game-meta-line {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-top: 3px;
+    }
+
+    .game-card-body {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink-secondary);
+      line-height: 1.75;
+    }
+
+    /* Proof Frames: zero-crop discipline for data panels */
+    .proof-frame {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--frame-dark);
+      cursor: zoom-in;
+    }
+
+    .proof-frame.dark-mat {
+      background: #1B1E24;
+      padding: 6px;
+    }
+
+    .proof-frame.indigo-mat {
+      background: #272D6B;
+      padding: 6px;
+    }
+
+    .proof-frame.light-mat {
+      background: #F8FAFC;
+      padding: 8px;
+    }
+
+    .proof-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .proof-frame.dark-mat img,
+    .proof-frame.indigo-mat img,
+    .proof-frame.light-mat img {
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .proof-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Subtle hover-only zoom badge so numbers on screenshots are NEVER covered */
+    .proof-badge {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      color: #FFFFFF;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 6px;
+      backdrop-filter: blur(6px);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .proof-frame:hover .proof-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proof-ratio-wide { aspect-ratio: 16 / 9; }
+    .proof-ratio-ban { aspect-ratio: 2.35 / 1; }
+    .proof-ratio-card { aspect-ratio: 4 / 3; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .compare-panel {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .compare-panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .nz-pair {
+      display: grid;
+      grid-template-columns: 0.42fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .nz-pair .proof-frame {
+      height: 210px;
+    }
+
+    .quad-gacha-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* ==================== SECTION 2: PROJECTS & DEMOS ==================== */
+    .project-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .proj-tab {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--ink-secondary);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.16s ease;
+    }
+
+    .proj-tab:hover {
+      border-color: var(--border-strong);
+      color: var(--ink-primary);
+    }
+
+    .proj-tab.active {
+      background: var(--ink-primary);
+      border-color: var(--ink-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .project-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-pane {
+      display: none;
+      animation: paneFade 0.24s ease;
+    }
+
+    .project-pane.active {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @keyframes paneFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .proj-info h3 {
+      margin: 8px 0 6px;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .proj-sub {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-bottom: 18px;
+    }
+
+    .proj-list {
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .proj-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14.4px;
+      color: var(--ink-secondary);
+      line-height: 1.76;
+    }
+
+    .proj-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--accent-cobalt);
+    }
+
+    .proj-visuals {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .proj-visual-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .strip-evidence-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .strip-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .strip-img-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      cursor: zoom-in;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .strip-img-wrap:hover {
+      border-color: var(--accent-cobalt);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .strip-img-wrap img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .stat-board-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card-clean {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .stat-card-clean .big {
+      font-family: var(--font-mono);
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .stat-card-clean .desc {
+      font-size: 13px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    /* ==================== SECTION 3: HEXTECH EASTER EGG (TIERED BORDERS) ==================== */
+    .hex-board {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hex-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .hex-legend {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--ink-secondary);
+    }
+
+    .tier-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tier-dot i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .tier-dot.prism i { background: var(--prism-grad); }
+    .tier-dot.gold i { background: var(--gold-border); }
+    .tier-dot.silver i { background: var(--silver-border); }
+
+    .hex-reroll {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .hex-reroll:hover {
+      background: var(--ink-primary);
+      border-color: var(--ink-primary);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .hex-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hex-card {
+      position: relative;
+      text-align: left;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .hex-card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Silver Tier Card */
+    .hex-card.tier-silver {
+      background: #FFFFFF;
+      border-color: #CBD5E1;
+      box-shadow: 0 2px 8px rgba(100, 116, 139, 0.08);
+    }
+
+    .hex-card.tier-silver:hover {
+      border-color: var(--silver-border);
+      box-shadow: 0 8px 20px rgba(100, 116, 139, 0.16);
+    }
+
+    .hex-card.tier-silver.selected {
+      background: var(--silver-bg);
+      border-color: var(--silver-strong);
+      box-shadow: 0 10px 26px rgba(71, 85, 105, 0.18);
+    }
+
+    /* Gold Tier Card */
+    .hex-card.tier-gold {
+      background: #FFFFFF;
+      border-color: #FCD34D;
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.1);
+    }
+
+    .hex-card.tier-gold:hover {
+      border-color: var(--gold-border);
+      box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18);
+    }
+
+    .hex-card.tier-gold.selected {
+      background: var(--gold-bg);
+      border-color: var(--gold-border);
+      box-shadow: 0 10px 28px rgba(217, 119, 6, 0.22);
+    }
+
+    /* Prismatic Tier Card */
+    .hex-card.tier-prismatic {
+      border: 2.5px solid transparent;
+      background-image: linear-gradient(#FFFFFF, #FFFFFF), var(--prism-grad);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.14);
+    }
+
+    .hex-card.tier-prismatic:hover {
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.24);
+    }
+
+    .hex-card.tier-prismatic.selected {
+      background-image: var(--prism-bg), var(--prism-grad);
+      box-shadow: 0 12px 32px rgba(109, 40, 217, 0.25);
+    }
+
+    .hex-tier {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .tier-silver .hex-tier {
+      background: var(--silver-badge-bg);
+      color: var(--silver-strong);
+    }
+
+    .tier-gold .hex-tier {
+      background: var(--gold-badge-bg);
+      color: var(--gold-strong);
+    }
+
+    .tier-prismatic .hex-tier {
+      background: var(--prism-grad);
+      color: #FFFFFF;
+    }
+
+    .hex-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      line-height: 1.38;
+    }
+
+    .hex-card-summary {
+      font-size: 13.2px;
+      color: var(--ink-secondary);
+      line-height: 1.62;
+    }
+
+    /* Dynamic Tiered Reader Panel */
+    .hex-reader {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold-border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .hex-reader.tier-silver {
+      border-left-color: var(--silver-strong);
+      background: #F8FAFC;
+    }
+
+    .hex-reader.tier-gold {
+      border-left-color: var(--gold-border);
+      background: #FFFDF5;
+    }
+
+    .hex-reader.tier-prismatic {
+      border-left: 4px solid #6366F1;
+      background: linear-gradient(135deg, #FAF8FF 0%, #F7FEFF 60%, #FFF7FB 100%);
+    }
+
+    .hex-reader h4 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .hex-reader p {
+      margin: 0 0 10px;
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      line-height: 1.82;
+    }
+
+    .hex-reader p:last-child { margin-bottom: 0; }
+
+    /* ==================== SECTION 4: 74 GAMES ARCHIVE ==================== */
+    .archive-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .filter-btn {
+      padding: 7px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--ink-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--ink-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-cobalt);
+      border-color: var(--accent-cobalt);
+      color: #FFFFFF;
+    }
+
+    .search-input {
+      width: 240px;
+      max-width: 100%;
+      padding: 8px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cobalt);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .archive-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .archive-item.has-img {
+      cursor: pointer;
+    }
+
+    .archive-item.has-img:hover {
+      border-color: var(--accent-cobalt);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .archive-item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .archive-item-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .archive-item-stat {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-cobalt);
+    }
+
+    .archive-item-note {
+      font-size: 12.8px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    .archive-img-hint {
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-cobalt);
+    }
+
+    .webgame-box {
+      margin-top: 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .webgame-box summary {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .webgame-tags {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 44px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-title {
+      margin: 0 0 6px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .footer-sub {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink-secondary);
+    }
+
+    .contact-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .copy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .copy-pill:hover {
+      border-color: var(--accent-cobalt);
+      background: var(--accent-cobalt-soft);
+    }
+
+    /* ==================== LIGHTBOX MODAL ==================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-dialog {
+      width: 100%;
+      max-width: 960px;
+      max-height: 92vh;
+      background: var(--bg-surface);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .lightbox-head {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--bg-surface);
+      flex-shrink: 0;
+    }
+
+    .lightbox-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .lightbox-close {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .lightbox-close:hover {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border-color: var(--ink-primary);
+    }
+
+    .lightbox-body {
+      overflow-y: auto;
+      padding: 18px 20px;
+      background: #EEF2F6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lightbox-scroll-hint {
+      display: none;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-cobalt);
+      color: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .lightbox.is-long .lightbox-scroll-hint { display: inline-block; }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      background: #0F172A;
+    }
+
+    .lightbox.is-long .lightbox-img {
+      max-height: none;
+      width: 100%;
+      max-width: 780px;
+      height: auto;
+    }
+
+    .lightbox-caption {
+      width: 100%;
+      max-width: 780px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13.8px;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 300;
+      box-shadow: var(--shadow-md);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .lead-game-columns,
+      .deep-games-grid,
+      .compare-grid,
+      .quad-gacha-grid,
+      .project-pane.active,
+      .hex-cards,
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+      .nz-pair { grid-template-columns: 1fr; }
+      .nz-pair .proof-frame { height: 220px; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 36px 0 44px; }
+      .section { padding: 48px 0; }
+      .hero-metrics, .hero-gallery, .proj-visual-row { grid-template-columns: 1fr; }
+      .lead-game-card, .project-stage, .hex-board { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">KY</span>
+        <span>kyyddb · 游戏经历墙</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#games">核心游戏经历</a>
+        <a href="#projects">项目与原型</a>
+        <a href="#hextech">海克斯小彩蛋</a>
+        <a href="#archive">全量档案</a>
+      </nav>
+      <button class="nav-cta" type="button" onclick="copyText('-Kyyddb-', '已复制微信号：-Kyyddb-')">复制微信</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span>跨品类游戏玩家 · 社群与内容实践 · 玩法原型探索</span>
+        </div>
+        <h1 class="hero-title">kyyddb</h1>
+        <p class="hero-sub">
+          从小学 4399 页游一路玩到现在，累计体验 74 款跨品类游戏，MOBA 和射击玩得最久。除了当玩家，也带过七年 45 人玩家群、做过 130 小时斗魂竞技场实战指导、从零做过双平台游戏账号，进过 21 天 Game Jam 团队，自己也动手搭过两个小游戏原型。
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#projects">看项目与 Demo</a>
+          <a class="btn-secondary" href="#games">看核心游戏经历</a>
+          <button class="btn-secondary" type="button" onclick="copyText('kyyddb@foxmail.com', '已复制邮箱：kyyddb@foxmail.com')">复制邮箱</button>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric-box">
+            <div class="metric-val">74 款</div>
+            <div class="metric-label">45 款正式版 + 29 款童年页游，十年跨品类体验</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">7 年</div>
+            <div class="metric-label">45 人玩家群主，千次开黑与数十场群内小赛事</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">3 个</div>
+            <div class="metric-label">Game Jam 完赛作品 + 2 个 AI 辅助玩法原型</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 2x2 Real Visual Showcase -->
+      <div class="hero-gallery">
+        <figure class="hero-shot" style="margin:0" onclick="openLightbox('slime', 'TapTap 聚光灯 Game Jam《粘液怪》实机画面', '7 人跨职能团队 21 天完赛作品。立项阶段提出以怪物视角反击人类，被采纳为实验体七号逃出实验室的世界观基底，随后在主策玩法框架下负责碎片化文档叙事与剧情文案。', false)">
+          <div class="hero-shot-media">
+            <img data-asset="slime" src="images/slime-gameplay.jpg" alt="《粘液怪》Game Jam 实机画面" />
+          </div>
+          <figcaption class="hero-shot-cap">
+            <span>《粘液怪》Game Jam</span>
+            <span>放大查看</span>
+          </figcaption>
+        </figure>
+
+        <figure class="hero-shot" style="margin:0" onclick="openLightbox('xjy1', 'Godot 修仙搜打撤卡牌肉鸽《寻基缘》实机原型', '个人用 Godot 搭建的玩法原型，已跑通「搜刮 → 合成 → 战斗 → 撤离」最小可玩循环。本人负责玩法循环设计、需求拆解和调试验收，脚本代码由 AI 辅助编写。', false)">
+          <div class="hero-shot-media">
+            <img data-asset="xjy1" src="images/xunjiyuan-1.jpg" alt="《寻基缘》Godot 原型画面" />
+          </div>
+          <figcaption class="hero-shot-cap">
+            <span>《寻基缘》Godot 原型</span>
+            <span>放大查看</span>
+          </figcaption>
+        </figure>
+
+        <figure class="hero-shot" style="margin:0" onclick="openLightbox('grass', 'Python + Pygame 俯视角像素生存割草 Demo', '个人流程练手原型，包含武器、宝箱、附魔和 4 个关卡，打包成可双击运行的 EXE。由本人拆解需求与验收调试，代码由 AI 辅助产出。', false)">
+          <div class="hero-shot-media">
+            <img data-asset="grass" src="images/grass-demo.jpg" alt="像素生存割草 Demo 画面" />
+          </div>
+          <figcaption class="hero-shot-cap">
+            <span>像素生存割草 Demo</span>
+            <span>放大查看</span>
+          </figcaption>
+        </figure>
+
+        <figure class="hero-shot" style="margin:0" onclick="openLightbox('pbzFull', '《影之刃零》一周目全清实拍长图', '33.43 小时完成一周目，九张地图 509/509 探索与 511/511 收集全满，BOSS 战绩 75/75，Steam 累计 42.2 小时 66/66 全成就。', true)">
+          <div class="hero-shot-media">
+            <img data-asset="pbzThumb" src="images/pbz-thumb.jpg" alt="《影之刃零》一周目全清统计预览" />
+          </div>
+          <figcaption class="hero-shot-cap">
+            <span>《影之刃零》全收集长图</span>
+            <span>可滚长图</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: CORE GAMES -->
+  <section id="games" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">核心游戏经历</h2>
+        </div>
+      </div>
+
+      <!-- MOBA Lead Card: League of Legends -->
+      <article class="lead-game-card">
+        <div class="lead-game-top">
+          <div>
+            <div class="game-title-row">
+              <h3 class="game-name">《英雄联盟》</h3>
+              <span class="tag tag-blue">MOBA</span>
+              <span class="tag tag-amber">10 年+ 老玩家</span>
+            </div>
+            <div class="game-meta-line">端游排位大师 · 斗魂竞技场 1v1 实战指导 130 小时 · 外观微氪约 250 元</div>
+          </div>
+          <div class="stat-chips">
+            <span class="stat-chip">10 年+</span>
+            <span class="stat-chip">排位大师</span>
+            <span class="stat-chip">斗魂指导 130H</span>
+            <span class="stat-chip">营收约 8000 元</span>
+          </div>
+        </div>
+
+        <div class="lead-game-columns">
+          <div class="thought-block">
+            <h4>从排位测上限转向娱乐模式</h4>
+            <p>
+              早年打排位主要是想看看自己的水平能到哪里，一路打到排位大师后觉得再往上打不动了，重心便慢慢转向了普通大乱斗（嚎哭深渊）。那段时间端游一度差点沦为“云顶之弈启动器”，直到斗魂竞技场和海克斯大乱斗上线，高密度的构筑爽感重新把我和身边不少朋友拉回了客户端，之后我也基本专精在这两个娱乐模式里。
+            </p>
+          </div>
+          <div class="thought-block">
+            <h4>大赛季改版与老玩家回坑门槛</h4>
+            <p>
+              英雄联盟每个大赛季都会对地图、装备和核心机制做大幅增删改。老玩家隔几个版本回来，操作手感要重新找，装备效果和数值也要重学一遍。不少人回流打两三局看不懂版本就直接退出了，或者干脆一直待在规则变动很小的嚎哭深渊里，直到海克斯大乱斗承接了这部分需求。
+            </p>
+          </div>
+          <div class="thought-block">
+            <h4>娱乐模式拿掉了“怕失误”的社交压力</h4>
+            <p>
+              英雄联盟算半个社交游戏，打排位高度依赖固定朋友，一把失误很容易影响心情。海克斯大乱斗和斗魂竞技场输了不掉分，赢了爽感翻倍，陪朋友开黑没负担；想专门试某套奇葩流派，自己单开一局也很开心。社区里大量的构筑讨论和二创，很多都是从这种无压力对局里长出来的。做斗魂 1v1 指导的三个月里，我把个人手感拆成“英雄梯度、海克斯联动、出装思路”三层去教，才拿到了高复购。
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Deep Games Grid -->
+      <div class="deep-games-grid">
+
+        <!-- Honor of Kings -->
+        <article class="game-card">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>《王者荣耀》</h3>
+                <span class="tag tag-blue">移动 MOBA</span>
+              </div>
+              <div class="game-meta-line">100+H · 赛季初 7 天上王者 · 最高荣耀王者 100 星 · 巅峰赛 1600+ · 贵族 4（约 200 元）</div>
+            </div>
+          </div>
+          <p class="game-card-body">
+            早期打排位和英雄联盟一样，主要想看看自己的水平在哪里，最高打到荣耀王者 100 星和巅峰赛 1600+。王者的匹配和排位环境分化很明显，打排位体验更好，所以我平时基本把排位当匹配打，没那么在意输赢，更多是跟着固定朋友社交开黑。今年限时「共鸣之战」上线后，我很快摸清了主流强势构筑，多英雄被动叠加的爽感非常上头，不过模式下架后落差太大，之后就没再打开过。
+          </p>
+        </article>
+
+        <!-- Overwatch -->
+        <article class="game-card">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>《守望先锋》</h3>
+                <span class="tag">英雄射击 FPS</span>
+              </div>
+              <div class="game-meta-line">124 小时 · 预设职责白金三 · 今年万圣节深度体验「疯狂谜影」</div>
+            </div>
+          </div>
+          <p class="game-card-body">
+            趁着守望先锋十周年圆梦，专门入坑体验了这款 2016 年的年度最佳游戏，打了 124 小时到预设职责白金三。今年万圣节期间深度沉迷了限时「疯狂谜影」模式，局内随机强化打起来非常上头。后来万圣节模式下架，加上自己最喜欢玩的英雄「路霸」重做后手感变了，就慢慢淡游了。
+          </p>
+        </article>
+
+        <!-- Reverse War: Future -->
+        <article class="game-card">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>《逆战：未来》</h3>
+                <span class="tag">PVE 刷宝射击 FPS</span>
+                <span class="tag tag-amber">469.1 小时</span>
+              </div>
+              <div class="game-meta-line">S0/S1 全金武紫武、插件、饰品全收集 · 外观付费不碰强度</div>
+            </div>
+          </div>
+          <div class="nz-pair">
+            <div class="proof-frame dark-mat" onclick="openLightbox('nzHours', '《逆战：未来》平台实测时长 469.1 小时', '今年深度投入的射击产品，累计 469.1 小时。', false)">
+              <img data-asset="nzHours" src="images/nz-hours.jpg" alt="逆战未来 469.1 小时实拍" />
+              <span class="proof-badge">放大</span>
+            </div>
+            <div class="proof-frame" onclick="openLightbox('nzFull', '《逆战：未来》S0/S1 仓库全收集实拍长图', 'S0/S1 全金武紫武、插件与饰品全收集截图。付费点集中在角色与武器皮肤，不影响实际强度。', true)">
+              <img data-asset="nzThumb" src="images/nz-collect-thumb.jpg" alt="逆战未来 S0/S1 全收集预览" />
+              <span class="proof-badge">查看完整长图</span>
+            </div>
+          </div>
+          <p class="game-card-body">
+            今年花时间最多的射击游戏。拉着我肝了 469 小时的不是战力比拼，是仓库进度条和“处于第一梯队、能给别人出攻略”的身份感。它的氪金点全在角色和武器皮肤，不卖强度。但边界也很清晰：S0/S1 东西全部集满之后，目标感消失，S2 我就直接退坑了。
+          </p>
+        </article>
+
+        <!-- Arknights (Uncropped wide panel!) -->
+        <article class="game-card">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>《明日方舟》</h3>
+                <span class="tag">塔防 TD · 二次元</span>
+                <span class="tag tag-amber">签到 2099 天</span>
+              </div>
+              <div class="game-meta-line">注册 2642 天 · 120 级 · 集成战略 5 期累计解锁 1045 件藏品 · 微氪约 600 元</div>
+            </div>
+          </div>
+          <div class="proof-frame proof-ratio-ban dark-mat" onclick="openLightbox('ark', '《明日方舟》累计签到 2099 天与数据面板实拍', '注册 2642 天、累计签到 2099 天，等级 120/80，满杀剿灭 35，主线 15-10；集成战略（肉鸽）5 期累计解锁 1045 件藏品（傀影 211 + 水月 205 + 探索者 202 + 萨卡兹 234 + 界园 193）。', false)">
+            <img data-asset="ark" src="images/arknights-stats.jpg" alt="明日方舟成就收集实拍" />
+            <span class="proof-badge">放大</span>
+          </div>
+          <p class="game-card-body">
+            我玩过日常负担最轻的长线游戏。每天十几分钟就能清完日常，隔两天不上线也不会落后，社交压力极低，更像一部单机养成。皮肤、UI 和潜能付费不卡普通玩家的收集体验，零氪和低氪也能拿全图鉴，玩家才有精力留下来看剧情和做二创。
+          </p>
+        </article>
+
+        <!-- Phantom Blade Zero vs Black Myth: Wukong -->
+        <article class="game-card game-card-wide">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>《影之刃零》对比《黑神话：悟空》：两款单机的不同结局</h3>
+                <span class="tag">ARPG 单机</span>
+              </div>
+              <div class="game-meta-line">一款 33.43H 一周目全清通关，一款 29.2H 停在第五回看视频云完</div>
+            </div>
+          </div>
+
+          <div class="compare-grid">
+            <div class="compare-panel">
+              <div class="compare-panel-title">
+                <span>《影之刃零》｜一周目全清通关</span>
+                <span class="mono" style="font-size:12.5px; color:var(--accent-cobalt);">33.43H 一周目 / Steam 42.2H 全成就</span>
+              </div>
+              <div class="proof-frame proof-ratio-wide" onclick="openLightbox('pbzFull', '《影之刃零》一周目全清实拍长图', '33.43 小时完成一周目：BOSS 战绩 75/75、全收集 511/511、地图探索 509/509、身陨 94 次，九张地图全部 100% 清空；Steam 累计 42.2H 达成 66/66 全成就。', true)">
+                <img data-asset="pbzThumb" src="images/pbz-thumb.jpg" alt="影之刃零全收集顶部预览" />
+                <span class="proof-badge">滚屏查看完整长图</span>
+              </div>
+              <p class="game-card-body" style="font-size:13.5px;">
+                连续游玩没被打断，用 33.43 小时把九张地图 509/509 探索点、511/511 收集物和 75/75 BOSS 全部打满。中后期内容密度高，一口气推完的体验非常连贯。
+              </p>
+            </div>
+
+            <div class="compare-panel">
+              <div class="compare-panel-title">
+                <span>《黑神话：悟空》｜停在第五回，看视频云完</span>
+                <span class="mono" style="font-size:12.5px; color:var(--ink-muted);">29.2H · 全收集 175/245</span>
+              </div>
+              <div class="proof-frame proof-ratio-wide" onclick="openLightbox('bmwFull', '《黑神话：悟空》实拍统计长图', '累计游玩 29.2 小时推进至第五回，全收集 175/245，影神图 156/203。中间被打断后再未打开，结局靠直播与视频补完。', true)">
+                <img data-asset="bmwThumb" src="images/bmw-thumb.jpg" alt="黑神话悟空进度顶部预览" />
+                <span class="proof-badge">滚屏查看完整长图</span>
+              </div>
+              <p class="game-card-body" style="font-size:13.5px;">
+                前 29 小时打得很投入，但中间有事停了一段时间后再想捡起来，操作手感生了、地图忘得差不多、支线进度也接不上。这三件事叠在一起，我干脆去 B 站看视频补完了结局。长线产品做回流召回，光发回归奖励不够，还得给玩家搭好恢复手感和进度的台阶。
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- HSR + Roco + Endfield (Uncropped 4:3 frames + hover-only badges!) -->
+        <article class="game-card game-card-wide">
+          <div class="game-card-head">
+            <div>
+              <div class="game-title-row">
+                <h3>长线二游与大世界养成</h3>
+                <span class="tag">RPG / 捉宠养成 / ARPG</span>
+              </div>
+            </div>
+          </div>
+          <div class="quad-gacha-grid">
+            <div class="compare-panel">
+              <div class="compare-panel-title">
+                <span>《崩坏：星穹铁道》</span>
+                <span class="mono" style="font-size:12px; color:var(--accent-cobalt);">约 997 天</span>
+              </div>
+              <div class="proof-frame proof-ratio-card indigo-mat" onclick="openLightbox('hsr', '《崩坏：星穹铁道》账号记录', '微氪约 500 元，长期体验模拟宇宙、差分宇宙和货币战争等常驻副玩法，也是「困意」小红书求助帖的直接素材来源。', false)">
+                <img data-asset="hsr" src="images/hsr-stats.jpg" alt="崩坏星穹铁道成绩实拍" />
+                <span class="proof-badge">放大</span>
+              </div>
+              <p class="game-card-body" style="font-size:13.2px;">
+                从模拟宇宙一路玩到差分宇宙和货币战争，直观看到常驻肉鸽副玩法怎么在长草期把老角色重新盘活，拉长了版本的可玩时间。
+              </p>
+            </div>
+
+            <div class="compare-panel">
+              <div class="compare-panel-title">
+                <span>《洛克王国：世界》</span>
+                <span class="mono" style="font-size:12px; color:var(--accent-cobalt);">511.8H · 四赛季大师</span>
+              </div>
+              <div class="proof-frame proof-ratio-card light-mat" onclick="openLightbox('roco', '《洛克王国：世界》511.8H 四赛季大师与异色全收集', '四赛季竞技场大师、异色全收集，外观与通行证累计约 250 元。付费仅服装与入场特效，通行证精灵还可通过好友社交进入他人世界捕捉。', false)">
+                <img data-asset="roco" src="images/roco-stats.jpg" alt="洛克王国世界成就收集实拍" />
+                <span class="proof-badge">放大</span>
+              </div>
+              <p class="game-card-body" style="font-size:13.2px;">
+                不冲榜几乎没有强度焦虑，付费只在服装和入场特效，而且通行证允许去好友世界抓对应精灵，把商业化和轻社交结合得很舒服。
+              </p>
+            </div>
+
+            <div class="compare-panel">
+              <div class="compare-panel-title">
+                <span>《明日方舟：终末地》</span>
+                <span class="mono" style="font-size:12px; color:var(--accent-cobalt);">权限等级 60</span>
+              </div>
+              <div class="proof-frame proof-ratio-card dark-mat" onclick="openLightbox('endfield', '《明日方舟：终末地》权限 60 级实拍面板', '2026 年 2 月 13 日开服苏醒，权限等级 60、探索等级 7、干员 28、武器 53、档案 134、光荣之路 67。', false)">
+                <img data-asset="endfield" src="images/endfield-stats.jpg" alt="终末地成就收集实拍" />
+                <span class="proof-badge">放大</span>
+              </div>
+              <p class="game-card-body" style="font-size:13.2px;">
+                2026 年 2 月开服第一批入坑，打到权限 60 级、探索 7 级，完整体验了跨端二游开荒期的探索与基建循环节奏。
+              </p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROJECTS & REAL DEMOS -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">动手做过的项目与原型</h2>
+        </div>
+      </div>
+
+      <div class="project-tabs" role="tablist">
+        <button class="proj-tab active" type="button" data-proj="jam">01｜Game Jam《粘液怪》</button>
+        <button class="proj-tab" type="button" data-proj="demos">02｜个人原型：《寻基缘》& 割草 Demo</button>
+        <button class="proj-tab" type="button" data-proj="kunyi">03｜「困意」双平台账号</button>
+        <button class="proj-tab" type="button" data-proj="community">04｜7 年玩家群 · 斗魂指导 · 短视频</button>
+      </div>
+
+      <div class="project-stage">
+        <!-- Pane 1: Game Jam -->
+        <div class="project-pane active" id="pane-jam">
+          <div class="proj-info">
+            <span class="tag tag-blue">研发协作 · 21 天完赛</span>
+            <h3>TapTap 聚光灯 Game Jam《粘液怪》</h3>
+            <div class="proj-sub">2026.10 ｜ 7 人跨职能团队（策划 / 程序 / 美术） ｜ 副策划（叙事与文案方向）</div>
+            <ul class="proj-list">
+              <li>立项期提出「以怪物为视角反击人类」的核心设定，被团队采纳为「实验体七号逃出实验室」的世界观基底。</li>
+              <li>玩法框架最终采用主策方案，我负责在已有 4 关漫画过场的基础上，设计「每关结束后以文档承接」的碎片化叙事结构，并补全全部剧情文案。</li>
+              <li>完整经历内部试玩发现方向偏差后整组推倒重来的迭代过程，体验 4 关剧情原型并反馈了触手崩断和落点控制的操作手感问题。</li>
+            </ul>
+            <a class="btn-primary" href="https://www.taptap.cn/app/987134" target="_blank" rel="noopener noreferrer">
+              前往 TapTap 作品页在线试玩
+            </a>
+          </div>
+          <div class="proj-visuals">
+            <div class="proof-frame proof-ratio-wide" onclick="openLightbox('slime', '《粘液怪》游戏内实机画面', 'TapTap 聚光灯 2026 Game Jam（主题：涌现）7 人团队完赛作品实机画面。', false)">
+              <img data-asset="slime" src="images/slime-gameplay.jpg" alt="粘液怪游戏实机画面" />
+              <span class="proof-badge">放大</span>
+            </div>
+            <div class="proof-frame proof-ratio-ban dark-mat" onclick="openLightbox('jamPage', 'TapTap 聚光灯《粘液怪》官方作品页', '已上架 TapTap 试玩评审页面（taptap.cn/app/987134）。', false)">
+              <img data-asset="jamPage" src="images/gamejam-page.jpg" alt="TapTap Game Jam 作品页截图" />
+              <span class="proof-badge">放大</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pane 2: Personal Demos -->
+        <div class="project-pane" id="pane-demos">
+          <div class="proj-info">
+            <span class="tag tag-amber">AI 辅助原型落地 · 2 款可玩 Demo</span>
+            <h3>《寻基缘》Godot 原型 & 像素生存割草 Demo</h3>
+            <div class="proj-sub">2026 ｜ 个人主导玩法循环设计与调试验收 ｜ 脚本代码由 AI 辅助实现</div>
+            <ul class="proj-list">
+              <li><strong>《寻基缘》（Godot，原型开发中）：</strong>融合「修仙题材 + 搜打撤 + 卡牌 + 合成爬塔肉鸽」机制的个人实验 Demo，目前已跑通「搜刮 → 合成 → 战斗 → 撤离」最小可玩循环。</li>
+              <li><strong>俯视角像素生存割草 Demo（Python + Pygame）：</strong>独立完成武器、宝箱、附魔与 4 个关卡的需求拆解和验收调试，打包为可双击运行的 EXE 文件，能完整通关。</li>
+            </ul>
+          </div>
+          <div class="proj-visuals">
+            <div class="proj-visual-row">
+              <div class="proof-frame proof-ratio-wide" onclick="openLightbox('xjy1', '《寻基缘》Godot 实机画面（1）', '修仙题材搜打撤 + 卡牌 + 合成爬塔肉鸽原型，已跑通搜刮→合成→战斗→撤离核心循环。', false)">
+                <img data-asset="xjy1" src="images/xunjiyuan-1.jpg" alt="寻基缘实机图1" />
+                <span class="proof-badge">放大</span>
+              </div>
+              <div class="proof-frame proof-ratio-wide" onclick="openLightbox('xjy2', '《寻基缘》Godot 实机画面（2）', '局内卡牌与合成战斗界面的原型验证画面。', false)">
+                <img data-asset="xjy2" src="images/xunjiyuan-2.jpg" alt="寻基缘实机图2" />
+                <span class="proof-badge">放大</span>
+              </div>
+            </div>
+            <div class="proof-frame proof-ratio-wide light-mat" onclick="openLightbox('grass', 'Python + Pygame 俯视角像素生存割草 Demo', '包含武器、宝箱、附魔与 4 个完整关卡，本地可双击 EXE 通关运行。', false)">
+              <img data-asset="grass" src="images/grass-demo.jpg" alt="像素生存割草 Demo 实拍" />
+              <span class="proof-badge">放大</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pane 3: Kunyi Account -->
+        <div class="project-pane" id="pane-kunyi">
+          <div class="proj-info">
+            <span class="tag tag-blue">内容运营 · AI 协同人设</span>
+            <h3>ACG 内容账号「困意」（小红书 + 小黑盒）</h3>
+            <div class="proj-sub">2026.09 起 ｜ 个人独立运营 ｜ 《怪物猎人》艾露猫 AI 陪伴人设</div>
+            <ul class="proj-list">
+              <li><strong>把 AI 生产写进人设：</strong>设计了一只以艾露猫为原型的 AI 陪伴伙伴，固定第一人称声口聊游戏日常。AI 负责初稿和配图辅助，我负责定人设、挑选题、控调性和最后一遍修改，因为 AI 写不出玩家游玩时的真实情绪。</li>
+              <li><strong>双平台差异化适配：</strong>同一篇内容分别改入口。小黑盒吃「物视角 + 具体数字」，零粉冷启动单条做到 1963 阅读、23 赞、16 评论；小红书吃「求助式提问」，一条崩铁新角色求助帖收到 3 条玩家攻略向长评，周期曝光环比 +94%、封面点击率 20%。</li>
+              <li><strong>Excel 48 小时回填复盘：</strong>记录曝光、点击率、互动、涨粉四项数据，通过单一变量对照验证出「封面管点击，内容管留存，评论管增长」。</li>
+            </ul>
+          </div>
+          <div class="proj-visuals">
+            <div class="strip-evidence-box">
+              <div class="strip-label">
+                <span>小黑盒单条实拍数据</span>
+                <span class="mono" style="color:var(--accent-cobalt);">1963 阅读 · 23 赞 · 16 评</span>
+              </div>
+              <div class="strip-img-wrap" onclick="openLightbox('xhh', '小黑盒单条实拍数据记录', '零粉冷启动下，按小黑盒偏好调整「物视角 + 具体数字」入口后的单篇实测数据：1963 阅读、23 赞、16 评论。', false)">
+                <img data-asset="xhh" src="images/xiaoheihe-strip.png" alt="小黑盒数据条实拍" />
+              </div>
+            </div>
+
+            <div class="strip-evidence-box">
+              <div class="strip-label">
+                <span>小红书周期表现实拍</span>
+                <span class="mono" style="color:var(--accent-cobalt);">曝光环比 +94% · 封面点击率 20%</span>
+              </div>
+              <div class="strip-img-wrap" onclick="openLightbox('xhs', '小红书周期曝光与封面点击率实拍', '针对小红书生态采用「求助式提问」与痛点封面后的周期实测表现：曝光环比 +94%，封面点击率 20%。', false)">
+                <img data-asset="xhs" src="images/xiaohongshu-strip.png" alt="小红书数据卡实拍" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pane 4: Community + Arena + Campus Video -->
+        <div class="project-pane" id="pane-community">
+          <div class="proj-info">
+            <span class="tag">长线社群 · 玩法教学 · 视频制作</span>
+            <h3>7 年玩家群 · 斗魂 130H 教学 · 校园展播短片</h3>
+            <div class="proj-sub">2019 – 2026 ｜ 覆盖社群治理、玩法知识产品化与 3 分钟短片全流程交付</div>
+            <ul class="proj-list">
+              <li><strong>玩家群「绝了」（2019 – 至今）：</strong>自主拉起的 45 人跨年龄段群（初中到大学），负责群规、准入和矛盾调解，7 年零恶性冲突。组织开黑 1000+ 次、群内小型赛事数十场（独立定赛制和排期），通过发起新游戏联机局召回流失成员（单次带回 5 到 6 人）；群内长期保有 1 位云顶宗师和 4 位 FPS 高玩。</li>
+              <li><strong>斗魂竞技场实战指导（十点零电竞，2025.06 – 09）：</strong>通过 B 站主播直播间实战考核进店接单（客户来自店铺主播流量，本人负责接单教学与店内英雄梯度/海克斯构筑拆解共建），3 个月完成 1v1 实战指导约 130 小时（60 元/时）、营收约 8000 元，客户以回头客为主。</li>
+              <li><strong>高校短视频《竹未出土先有节》（2026.03 – 06）：</strong>10 人团队里一人跑完 3 分钟短片的脚本、分镜、剪辑和字幕音效，对接指导老师改稿 3 轮按期交付，已在第三届高校「青春学习堂」大赛官网展播（本人署名），团队拟获一等奖。</li>
+            </ul>
+          </div>
+          <div class="proj-visuals">
+            <div class="stat-board-4">
+              <div class="stat-card-clean">
+                <div class="big">7 年 / 45 人</div>
+                <div class="desc">跨初高中至大学，零恶性冲突，峰值日消息 99+，日常稳定活跃 7–8 人</div>
+              </div>
+              <div class="stat-card-clean">
+                <div class="big">1000+ 次</div>
+                <div class="desc">日常组局开黑与数十场小型赛事，独立定赛制和排期，新游局单次召回 5–6 人</div>
+              </div>
+              <div class="stat-card-clean">
+                <div class="big">130H / 8000元</div>
+                <div class="desc">十点零电竞考核入选指导团队，3 个月 1v1 斗魂实战教学，回头客为主</div>
+              </div>
+              <div class="stat-card-clean">
+                <div class="big">官网展播</div>
+                <div class="desc">《竹未出土先有节》3 分钟全流程独立制作，改稿 3 轮按期交付，团队拟获一等奖</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: HEXTECH EASTER EGG -->
+  <section id="hextech" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">海克斯小彩蛋</h2>
+        </div>
+      </div>
+
+      <div class="hex-board">
+        <div class="hex-toolbar">
+          <div class="hex-legend">
+            <span>当前海克斯池子：<strong id="hex-pool-label" class="mono" style="color:var(--ink-primary);">第 1 组 / 共 2 组</strong></span>
+            <span class="tier-dot prism"><i></i>棱彩</span>
+            <span class="tier-dot gold"><i></i>黄金</span>
+            <span class="tier-dot silver"><i></i>白银</span>
+          </div>
+          <button class="hex-reroll" type="button" onclick="rerollHex()">刷新海克斯</button>
+        </div>
+
+        <div id="hex-cards-mount" class="hex-cards"></div>
+
+        <div id="hex-reader-mount" class="hex-reader"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: 74 GAMES ARCHIVE -->
+  <section id="archive" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">全量游戏经历档案</h2>
+          <p class="section-desc">45 款正式版 + 29 款童年页游（共 74 款）</p>
+        </div>
+      </div>
+
+      <div class="archive-controls">
+        <div id="filter-pills" class="filter-pills"></div>
+        <input id="game-search" class="search-input" type="search" placeholder="搜游戏名或关键词，如 英雄联盟 / 肉鸽" aria-label="搜索游戏经历" />
+      </div>
+
+      <div id="archive-grid" class="archive-grid"></div>
+
+      <details class="webgame-box">
+        <summary>展开童年页游记忆库（4399 等 29 款）</summary>
+        <div class="webgame-tags" id="webgame-tags"></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <h3 class="footer-title">kyyddb</h3>
+        <p class="footer-sub">欢迎交流游戏体验、玩法拆解与项目合作</p>
+      </div>
+      <div class="contact-bar">
+        <button class="copy-pill" type="button" onclick="copyText('-Kyyddb-', '已复制微信号：-Kyyddb-')">微信：<span class="mono">-Kyyddb-</span></button>
+        <button class="copy-pill" type="button" onclick="copyText('kyyddb@foxmail.com', '已复制邮箱：kyyddb@foxmail.com')">邮箱：<span class="mono">kyyddb@foxmail.com</span></button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" onclick="handleLightboxBackdrop(event)">
+    <div class="lightbox-dialog">
+      <div class="lightbox-head">
+        <div id="lb-title" class="lightbox-title">图片预览</div>
+        <button class="lightbox-close" type="button" onclick="closeLightbox()">关闭 (Esc)</button>
+      </div>
+      <div class="lightbox-body">
+        <div class="lightbox-scroll-hint">完整高清长图 · 可上下滚动查看全部统计明细</div>
+        <img id="lb-img" class="lightbox-img" src="" alt="" />
+        <div id="lb-caption" class="lightbox-caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const ASSETS = {"slime": "images/slime-gameplay.jpg", "jamPage": "images/gamejam-page.jpg", "xjy1": "images/xunjiyuan-1.jpg", "xjy2": "images/xunjiyuan-2.jpg", "grass": "images/grass-demo.jpg", "ark": "images/arknights-stats.jpg", "hsr": "images/hsr-stats.jpg", "roco": "images/roco-stats.jpg", "endfield": "images/endfield-stats.jpg", "nzHours": "images/nz-hours.jpg", "nzThumb": "images/nz-collect-thumb.jpg", "nzFull": "images/nz-collect-full.jpg", "pbzThumb": "images/pbz-thumb.jpg", "pbzFull": "images/pbz-full.jpg", "bmwThumb": "images/bmw-thumb.jpg", "bmwFull": "images/bmw-full.jpg", "xhh": "images/xiaoheihe-strip.png", "xhs": "images/xiaohongshu-strip.png"};
+    function resolveAsset(k) { return ASSETS[k] || k; }
+
+
+    // ==================== PROJECT TABS ====================
+    document.querySelectorAll('.proj-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.proj;
+        document.querySelectorAll('.proj-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.project-pane').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('pane-' + target).classList.add('active');
+      });
+    });
+
+    // ==================== HEXTECH EASTER EGG DECK (6 CARDS, TIER-CODED) ====================
+    const HEX_NOTES = [
+      {
+        id: 'hex-hu',
+        tier: 'prismatic',
+        tierLabel: '棱彩阶 · 01',
+        title: '海克斯为什么让人上头：胡局爽感、控温与防爽秒投',
+        summary: '从云顶到斗魂、共鸣之战和疯狂谜影，“胡不胡”怎么同时制造爽感和 PVP 里的博弈心态。',
+        paragraphs: [
+          '海克斯类肉鸽能火遍这么多品类，核心靠的是“胡不胡”带来的高方差爽感。在王者共鸣之战、LOL 海克斯大乱斗、斗魂竞技场和守望万圣节疯狂谜影里，只要凑出超模流派，自己就能轻松碾压对手，正反馈比常规排位强得多。',
+          '但在 PVP 里，一方极度爽往往意味着另一方毫无还手之力，于是社区里流传出一句很真实的话：“我胡我不推，继续爽；队友胡我就推，不让队友爽；对面胡我就点，不让对面爽。”优势方为了不让对手绝望秒投打断爽局，甚至会刻意留一点反抗余地去“控温”。云顶和金铲铲里也一样，看到对面追三星五费或者开局福星羁绊飞快成型，很多人会刻意卡牌或者直接点投降不让对面看动画。',
+          '换到崩铁货币战争、洛克王国草系徽章这类单人环境里，没有对手投降的问题，玩家的执念就变成了反复重开、刷完美初始开局。同样一套发牌随机性，放到 PVP 和 PVE 里衍生出的玩家行为完全不同。'
+        ]
+      },
+      {
+        id: 'hex-retention',
+        tier: 'gold',
+        tierLabel: '黄金阶 · 02',
+        title: '限时模式一关就淡游，常驻上线又会吸干老模式',
+        summary: '从共鸣之战、今年守望万圣节模式停玩，以及 CF 多人生化的演变，看高爽感副玩法的两难。',
+        paragraphs: [
+          '高爽感模式很容易拉高玩家的体验阈值。王者荣耀的共鸣之战和今年守望先锋的万圣节「疯狂谜影」上线时，我都玩得很上头；但模式一下架，回到常规模式觉得节奏慢、限制多（守望加上路霸重做），我之后就没再打开过王者，守望也慢慢淡游了，社区里催返场的声音也特别大。',
+          '反过来，如果直接常驻，又会出现另一种生态迁移。以前玩穿越火线，多人生化模式出来之后，原本的老生化模式玩的人一下子少了很多，大家都往爽感密度更高的多人生化那边跑了。',
+          '所以运营这类玩法，上架前就得想清楚退路：打算做限时活动的，适合做成固定周期返场并每次换新词条；如果数据证明大家真的离不开，就干脆拆出来做成常驻副玩法，配上轻量的赛季目标，像差分宇宙和斗魂竞技场那样接住这批人。'
+        ]
+      },
+      {
+        id: 'sgs-qiji',
+        tier: 'gold',
+        tierLabel: '黄金阶 · 03',
+        title: '三国杀「奇技斗地主」：老规则叠加技能自由搭配',
+        summary: '最近刚上线的全新斗地主模式，把不同技能自由组合放进三分钟短局，社区反响很热。',
+        paragraphs: [
+          '《三国杀》最近刚上线的限时玩法「奇技斗地主」，在经典斗地主规则基础上直接加入了不同技能的自由搭配，三分钟一局，换个技能组合就是完全不一样的体验。',
+          '这个模式能很快火起来，一方面是斗地主规则人人都会，零教学成本；另一方面是把不同武将的技能拿出来自由对碰，玩家不用等出新卡就能自己研究各种离谱流派。上线后玩的人很多，社区反响也很好，被不少玩家称为最有趣的斗地主模式。',
+          '其实它和云顶海克斯、王者共鸣之战底层很像：都是在玩家最熟悉的既有规则上，叠一层低门槛的技能组合维度，既不劝退，又能靠高频的新鲜感和爽局带动讨论。'
+        ]
+      },
+      {
+        id: 'cosmetic-pay',
+        tier: 'gold',
+        tierLabel: '黄金阶 · 04',
+        title: '今年深玩的三款游戏，付费全落在外观层，不碰强度',
+        summary: '对比明日方舟、洛克王国：世界与逆战：未来，看低焦虑环境下玩家为什么愿意留下来收集。',
+        paragraphs: [
+          '盘了一下我今年深度投入的三款产品：明日方舟（累计签到 2099 天，外观微氪约 600 元）、洛克王国：世界（511.8 小时四赛季大师，外观与通行证约 250 元）、逆战：未来（469.1 小时 S0/S1 全收集）。它们有一个很明显的共同点：付费点都集中在皮肤、UI、服装和入场特效上，不卖核心对抗强度。',
+          '洛克王国：世界甚至允许玩家通过好友社交进别人世界抓通行证对应的精灵。正因为零氪和低氪玩家在核心玩法上不吃亏、没有被数值追着打的焦虑，大家才有心情留下来做全图鉴收集、做二创、在群里互相带。',
+          '当然，不卖数值意味着产品必须靠持续的内容或收集目标留人。逆战：未来在 S0/S1 集满后 S2 我就退坑了，正好从反面说明了收集驱动型玩法很怕内容空窗。'
+        ]
+      },
+      {
+        id: 'interrupt-cost',
+        tier: 'silver',
+        tierLabel: '白银阶 · 05',
+        title: '影之刃零全收集 vs 黑神话第五回云完：中断成本的差距',
+        summary: '两款都是好游戏，区别在于停玩几天之后，有没有台阶让你顺畅接回手感、记忆和进度。',
+        paragraphs: [
+          '《影之刃零》我用 33.43 小时一口气打通一周目，九张地图 509/509 探索点和 511/511 收集全清空，Steam 打到 42.2 小时全成就。《黑神话：悟空》玩了 29.2 小时推进到第五回，体验其实很抓人，但中间被现实事情打断了一阵，之后就再也没提起来，结局是去 B 站看视频云完的。',
+          '这两段经历让我很直观地感受到什么是“中断成本”。一旦连续游玩被打断，隔一两周回来要同时面对三道坎：操作手感生了、地图路线忘了、支线和目标记不清了。三件事叠在一起，人就会顺手去云通关。',
+          '放到长线游戏里也是一样：老玩家回流活动如果只塞一堆回归签到奖励，却不管“怎么帮他花五分钟找回手感和当前目标”，人领完奖励还是会走。'
+        ]
+      },
+      {
+        id: 'mc-server',
+        tier: 'silver',
+        tierLabel: '白银阶 · 06',
+        title: '《我的世界》3000+ 小时与 20 人整合包服：沙盒里的社群自治',
+        summary: '从盒子版玩家到自己搭 20 人整合包服务器，切身经历规则边界和 UGC 生态的平衡。',
+        paragraphs: [
+          '《我的世界》前前后后玩了四五年、累计 3000+ 小时，从最早玩盒子版，到后来自己选 Mod、配整合包、拉 20 个朋友一起联机开服。',
+          '从普通玩家变成服主之后，操心的事情完全变了：不只要调 Mod 兼容和服务器卡顿，还要定规则、调解朋友之间的拆家和资源纠纷。回头看，这其实是我最早接触的一套“小型社区治理”。',
+          '沙盒游戏真正的生命力不在官方塞多少任务，而在玩家自己长出来的规则和玩法。平台要做的就是给好工具、守住底线，规则太松环境会崩，太紧了玩家又觉得没意思。'
+        ]
+      }
+    ];
+
+    let hexGroup = 0;
+    let selectedHexId = HEX_NOTES[0].id;
+
+    function renderHex() {
+      const start = hexGroup * 3;
+      const slice = HEX_NOTES.slice(start, start + 3);
+      if (!slice.some(n => n.id === selectedHexId)) {
+        selectedHexId = slice[0].id;
+      }
+      document.getElementById('hex-pool-label').textContent = `第 ${hexGroup + 1} 组 / 共 2 组`;
+
+      const cardsMount = document.getElementById('hex-cards-mount');
+      cardsMount.innerHTML = slice.map(n => `
+        <button type="button" class="hex-card tier-${n.tier} ${n.id === selectedHexId ? 'selected' : ''}" onclick="selectHex('${n.id}')">
+          <span class="hex-tier">${n.tierLabel}</span>
+          <span class="hex-card-title">${n.title}</span>
+          <span class="hex-card-summary">${n.summary}</span>
+        </button>
+      `).join('');
+
+      const active = HEX_NOTES.find(n => n.id === selectedHexId);
+      const readerMount = document.getElementById('hex-reader-mount');
+      readerMount.className = `hex-reader tier-${active.tier}`;
+      readerMount.innerHTML = `
+        <h4>${active.title}</h4>
+        ${active.paragraphs.map(p => `<p>${p}</p>`).join('')}
+      `;
+    }
+
+    function selectHex(id) {
+      selectedHexId = id;
+      renderHex();
+    }
+
+    function rerollHex() {
+      hexGroup = hexGroup === 0 ? 1 : 0;
+      renderHex();
+    }
+
+    // ==================== 74 GAMES ARCHIVE ====================
+    const IMG_MAP = {
+      pbz: { src: 'pbzFull', long: true, title: '《影之刃零》一周目全清实拍长图', cap: '33.43H 一周目通关，BOSS 75/75，全收集 511/511，地图探索 509/509，Steam 42.2H 全成就。' },
+      bmw: { src: 'bmwFull', long: true, title: '《黑神话：悟空》实拍进度长图', cap: '29.2H 推进至第五回，全收集 175/245，影神图 156/203，中断后看视频云完结局。' },
+      nz: { src: 'nzFull', long: true, title: '《逆战：未来》469.1H 仓库全收集长图', cap: 'S0/S1 全金武紫武、插件、饰品全收集，付费点全在皮肤不碰数值强度。' },
+      ark: { src: 'ark', long: false, title: '《明日方舟》累计签到 2099 天实拍', cap: '注册 2642 天、签到 2099 天、120 级、集成战略 5 期累计解锁 1045 件藏品。' },
+      hsr: { src: 'hsr', long: false, title: '《崩坏：星穹铁道》约 997 天记录实拍', cap: '长期体验模拟宇宙、差分宇宙与货币战争，微氪约 500 元。' },
+      roco: { src: 'roco', long: false, title: '《洛克王国：世界》511.8H 四赛季大师实拍', cap: '四赛季竞技场大师、异色全收集，付费仅服装与入场特效。' },
+      endfield: { src: 'endfield', long: false, title: '《明日方舟：终末地》权限 60 级实拍', cap: '2026-02-13 开服苏醒，权限 60 级、探索 7 级、干员 28、武器 53、光荣之路 67。' }
+    };
+
+    const CAT_MOBA = 'MOBA 与自走棋';
+    const CAT_FPS = '射击与竞技';
+    const CAT_TD = '策略塔防与卡牌';
+    const CAT_RPG = '回合制与养成';
+    const CAT_ARPG = '动作与开放世界';
+    const CAT_SANDBOX = '沙盒与生存';
+    const CAT_CASUAL = '聚会休闲与叙事';
+
+    const ARCHIVE_GAMES = [
+      { name: '英雄联盟', cat: CAT_MOBA, stat: '10 年+ · 大师', note: '斗魂 1v1 指导 130H；专精斗魂与海克斯大乱斗；微氪约 250 元' },
+      { name: '王者荣耀', cat: CAT_MOBA, stat: '100+H · 荣耀百星', note: '赛季初 7 天王者、巅峰 1600+、贵族 4；深玩共鸣之战' },
+      { name: '云顶之弈', cat: CAT_MOBA, stat: '阶段性 · 最高大师', note: '战斗学院永恩版本最高大师，当前钻石；熟悉海克斯策略' },
+      { name: '金铲铲之战', cat: CAT_MOBA, stat: '阶段性 · 钻石', note: '端转手赛季节奏与独立外观商业化体验' },
+
+      { name: '穿越火线（CF）', cat: CAT_FPS, stat: '1000+H', note: '三亿鼠标时期入坑，亲历老生化向多人生化演进' },
+      { name: '逆战：未来', cat: CAT_FPS, stat: '469.1H · 全收集', note: 'S0/S1 全金紫武插件饰品收集，目标达成后 S2 退坑', imgKey: 'nz' },
+      { name: '永劫无间', cat: CAT_FPS, stat: '171.4H · 双排陨星', note: '近战博弈学习曲线与高操作门槛下的组排粘性' },
+      { name: '守望先锋', cat: CAT_FPS, stat: '124H · 白金三', note: '十周年圆梦入坑；今年万圣节深玩疯狂谜影，模式下架与路霸重做后淡游' },
+      { name: '无畏契约', cat: CAT_FPS, stat: '94.7H', note: '战术射击枪械经济、技能博弈与观赛生态体验' },
+      { name: '荒野行动', cat: CAT_FPS, stat: '约半年', note: 'PUBG 配置门槛期平替，亲历外挂泛滥导致退游' },
+      { name: '绝地求生（PUBG）', cat: CAT_FPS, stat: '50H', note: '战术竞技大逃杀标杆体验' },
+      { name: 'Apex 英雄', cat: CAT_FPS, stat: '50H', note: '高机动 TTK 设计与三排信息交互' },
+      { name: '和平精英', cat: CAT_FPS, stat: '不足 10H', note: '移动端吃鸡基础交互体验' },
+
+      { name: '明日方舟', cat: CAT_TD, stat: '签到 2099 天', note: '注册 2642 天、120 级、集成战略 5 期累计 1045 藏品', imgKey: 'ark' },
+      { name: '杀戮尖塔 2', cat: CAT_TD, stat: '30H', note: '卡牌构筑循环、遗物联动与随机性控制' },
+      { name: '三国杀', cat: CAT_TD, stat: '20H', note: '重点体验近期上线的「奇技斗地主」技能搭配与双将/国战玩法' },
+      { name: '植物大战僵尸', cat: CAT_TD, stat: '全通关', note: '经典关卡曲线与机制教学样板' },
+      { name: '王国保卫战系列', cat: CAT_TD, stat: '一代全通关', note: '防御塔分支策略与高难关卡节奏' },
+      { name: '保卫萝卜', cat: CAT_TD, stat: '轻度游玩', note: '泛用户轻度塔防上手设计' },
+
+      { name: '崩坏：星穹铁道', cat: CAT_RPG, stat: '约 997 天', note: '深玩模拟宇宙、差分宇宙、货币战争；微氪约 500 元', imgKey: 'hsr' },
+      { name: '洛克王国：世界', cat: CAT_RPG, stat: '511.8H · 四赛季大师', note: '异色全收集，体验草系徽章限时玩法；外观/通行证约 250 元', imgKey: 'roco' },
+
+      { name: '原神', cat: CAT_ARPG, stat: '578 天 · 58 级', note: '开放世界大版本驱动与长线角色运营，微氪约 250 元' },
+      { name: '明日方舟：终末地', cat: CAT_ARPG, stat: '权限 60 级', note: '2026-02-13 开服入坑，探索 7 级、干员 28、武器 53', imgKey: 'endfield' },
+      { name: '影之刃零', cat: CAT_ARPG, stat: '42.2H · 全成就', note: '33.43H 一周目全清，BOSS 75/75、全收集 511/511', imgKey: 'pbz' },
+      { name: '黑神话：悟空', cat: CAT_ARPG, stat: '29.2H · 第五回', note: '全收集 175/245、影神图 156/203，中断后看视频云完', imgKey: 'bmw' },
+      { name: 'GTA5', cat: CAT_ARPG, stat: '74.8H · 全成就', note: '开放世界系统循环与多线叙事标杆' },
+      { name: '怪物猎人：世界', cat: CAT_ARPG, stat: '44.4H · 本体通关', note: '动作判定与生态塑造，也是艾露猫账号人设灵感来源' },
+      { name: '暖雪', cat: CAT_ARPG, stat: '3.4H', note: '国风暗黑动作肉鸽爽感体验' },
+      { name: '地下城与勇士（DNF）', cat: CAT_ARPG, stat: '轻度游玩', note: '横版端游基础框架认知' },
+      { name: '燕云十六声', cat: CAT_ARPG, stat: '轻度游玩', note: '国风开放世界探索观察' },
+      { name: '逆水寒', cat: CAT_ARPG, stat: '轻度游玩', note: '现代 MMO 轻社交与外观商业化观察' },
+
+      { name: '我的世界（Minecraft）', cat: CAT_SANDBOX, stat: '3000+H', note: '游玩 4–5 年，从盒子版到自建 20 人整合包联机服主' },
+      { name: '泰拉瑞亚', cat: CAT_SANDBOX, stat: '30.6H', note: '2D 沙盒装备驱动探索循环' },
+      { name: '饥荒', cat: CAT_SANDBOX, stat: '7.6H', note: '生存资源压力与联机合作' },
+      { name: '森林', cat: CAT_SANDBOX, stat: '7.2H', note: '环境压迫感与建造探索' },
+
+      { name: 'Among Us', cat: CAT_CASUAL, stat: '12.2H', note: '低门槛社交推理与社群破冰' },
+      { name: '糖豆人：终极淘汰赛', cat: CAT_CASUAL, stat: '轻度游玩', note: '派对闯关轻竞技体验' },
+      { name: '鹅鸭杀', cat: CAT_CASUAL, stat: '轻度游玩', note: '语音社交推理热潮体验' },
+      { name: 'QQ 飞车', cat: CAT_CASUAL, stat: '轻度游玩', note: '国民级竞速操作反馈认知' },
+      { name: '极限竞速：地平线', cat: CAT_CASUAL, stat: '轻度游玩', note: '开放世界赛车体验' },
+      { name: '节奏大师', cat: CAT_CASUAL, stat: '轻度游玩', note: '移动端音乐节奏玩法体验' },
+      { name: '开心消消乐', cat: CAT_CASUAL, stat: '轻度游玩', note: '国民级三消关卡认知' },
+      { name: '俄罗斯方块', cat: CAT_CASUAL, stat: '轻度游玩', note: '经典益智循环原型' },
+      { name: 'QQ 堂', cat: CAT_CASUAL, stat: '轻度游玩', note: '休闲对战记忆' },
+      { name: '心跳文学部', cat: CAT_CASUAL, stat: '轻度游玩', note: 'Meta 叙事与反差演出参考' }
+    ];
+
+    const WEBGAMES = [
+      '造梦西游系列', '死神 VS 火影', '拳皇 wing', '狂扁小朋友', '闪客快打', '双刃战士',
+      '炎龙传说', '勇者之路', '冒险王', '疯狂小人战斗', '合金弹头', '二战前线', '魂斗罗',
+      '坦克大战', '狂扁僵尸', '摩尔庄园', '奥比岛', '洛克王国', '赛尔号',
+      '植物大战僵尸（Flash 版）', '保卫萝卜（网页版）', '美食大战老鼠',
+      '森林冰火人', '黄金矿工', 'Q 版泡泡堂', '火柴人系列', '愤怒的小鸟（Flash 版）',
+      '割绳子', '小鳄鱼爱洗澡'
+    ];
+
+    const CATEGORIES = ['全部（45 款正式版）', CAT_MOBA, CAT_FPS, CAT_TD, CAT_RPG, CAT_ARPG, CAT_SANDBOX, CAT_CASUAL];
+    let activeCat = CATEGORIES[0];
+
+    function renderFilters() {
+      const mount = document.getElementById('filter-pills');
+      mount.innerHTML = CATEGORIES.map(cat => `
+        <button type="button" class="filter-btn ${cat === activeCat ? 'active' : ''}" onclick="setCat('${cat}')">${cat}</button>
+      `).join('');
+    }
+
+    function setCat(cat) {
+      activeCat = cat;
+      renderFilters();
+      renderArchive();
+    }
+
+    function renderArchive() {
+      const q = (document.getElementById('game-search').value || '').trim().toLowerCase();
+      const filtered = ARCHIVE_GAMES.filter(g => {
+        const matchCat = activeCat === CATEGORIES[0] || g.cat === activeCat;
+        const matchQ = !q || g.name.toLowerCase().includes(q) || g.note.toLowerCase().includes(q) || g.cat.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      const grid = document.getElementById('archive-grid');
+      if (!filtered.length) {
+        grid.innerHTML = `<div style="grid-column:1/-1; padding:24px; text-align:center; color:var(--ink-muted); background:#fff; border:1px solid var(--border); border-radius:12px;">没有搜到匹配的游戏，换个关键词或切回“全部”看看。</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(g => {
+        const imgAttr = g.imgKey ? `onclick="openArchiveImg('${g.imgKey}')"` : '';
+        return `
+          <div class="archive-item ${g.imgKey ? 'has-img' : ''}" ${imgAttr}>
+            <div class="archive-item-top">
+              <span class="archive-item-name">${g.name}</span>
+              <span class="archive-item-stat">${g.stat}</span>
+            </div>
+            <div class="archive-item-note">${g.note}</div>
+            ${g.imgKey ? '<div class="archive-img-hint">查看实拍截图</div>' : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openArchiveImg(key) {
+      const info = IMG_MAP[key];
+      if (!info) return;
+      openLightbox(info.src, info.title, info.cap, info.long);
+    }
+
+    document.getElementById('game-search').addEventListener('input', renderArchive);
+    document.getElementById('webgame-tags').innerHTML = WEBGAMES.map(n => `<span class="tag">${n}</span>`).join('');
+
+    // ==================== LIGHTBOX ====================
+    function openLightbox(keyOrUrl, title, caption, isLong) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lb-title').textContent = title;
+      document.getElementById('lb-img').src = resolveAsset(keyOrUrl);
+      document.getElementById('lb-img').alt = title;
+      document.getElementById('lb-caption').textContent = caption;
+      lb.classList.toggle('is-long', !!isLong);
+      lb.classList.add('open');
+      lb.querySelector('.lightbox-body').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleLightboxBackdrop(e) {
+      if (e.target.id === 'lightbox') closeLightbox();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ==================== COPY TOAST ====================
+    let toastTimer;
+    function copyText(text, msg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => fallbackCopy(text, msg));
+      } else {
+        fallbackCopy(text, msg);
+      }
+    }
+
+    function fallbackCopy(text, msg) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showToast(msg);
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    renderHex();
+    renderFilters();
+    renderArchive();
+  </script>
+</body>
+</html>
